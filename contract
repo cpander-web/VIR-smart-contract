@@ -213,7 +213,7 @@ contract VirCoinToken is BurnableToken {
     
   uint32 public constant decimals = 18;
 
-  uint256 public INITIAL_SUPPLY = 7000 * 1 ether;
+  uint256 public INITIAL_SUPPLY = 800000 * 1 ether;
 
   function VirCoinToken() public {
     totalSupply = INITIAL_SUPPLY;
@@ -241,12 +241,12 @@ contract Crowdsale is Ownable {
   uint rate;
 
   function Crowdsale() public {
-    multisig = 0xbD17a6ff64443beA53ca90A348206E3175B2cC90;
-    restricted = 0xbD17a6ff64443beA53ca90A348206E3175B2cC90;
+    multisig = 0x8317BD267d4F80105a4e634D85145eE37d24c7a9;
+    restricted = 0x862631C23626959b080e6F0A7972BA5e53ae0a88;
     restrictedPercent = 10;
     rate = 1000000000000000000000;
-    start = 1517788800;
-    period = 90;
+    start = 1518566400;
+    period = 100;
   }
   
   function bytesToAddress(bytes source) internal pure returns(address) {
@@ -268,9 +268,9 @@ contract Crowdsale is Ownable {
     multisig.transfer(msg.value);
     uint tokens = rate.mul(msg.value).div(1 ether);
     uint bonusTokens = 0;
-    if(now < start + (period * 1 days).div(3)) {
+    if(now < start + (14 * 1 days)) {
       bonusTokens = tokens.mul(15).div(100);
-    } else if(now >= start + (period * 1 days).div(3) && now < start + (period * 1 days).div(3).mul(2)) {
+    } else if(now >= start + (14 * 1 days) && now < start + (period * 1 days).div(3).mul(2)) {
       bonusTokens = tokens.div(10);
     } else if(now >= start + (period * 1 days).div(3).mul(2) && now < start + (period * 1 days).div(3).mul(3)) {
       bonusTokens = tokens.div(20);
